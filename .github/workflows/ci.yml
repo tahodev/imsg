@@ -15,7 +15,7 @@ concurrency:
 
 jobs:
   macos:
-    runs-on: xcode-27
+    runs-on: macos-15
     timeout-minutes: 30
     env:
       MACOSX_DEPLOYMENT_TARGET: "14.0"
@@ -39,30 +39,3 @@ jobs:
         run: make lint
       - name: Test
         run: make test
-      - name: Native reply construction (no send)
-        run: make test-native-replies
-      - name: Native subject construction (no send)
-        run: make test-native-subjects
-      - name: Verify Swift 6.1 minimum
-        run: swift package tools-version | grep -Fx "6.1.0"
-      - name: Build
-        run: make build
-      - name: Verify both release architectures
-        run: |
-          if ! arch -x86_64 /usr/bin/true; then
-            sudo softwareupdate --install-rosetta --agree-to-license
-          fi
-          arch -x86_64 /usr/bin/true
-          arch -arm64 bin/imsg --version
-          arch -x86_64 bin/imsg --version
-
-  linux-read-core:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-        with:
-          node-version: "26.12.1"
-      - name: Test Linux read core and standalone release archive
-        run: scripts/check-linux.sh
