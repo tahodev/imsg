@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Read custom emoji reactions from `message.associated_message_emoji` when the column is present, falling back to the localized summary text only when it is missing or empty (#392).
+
 ## 0.21.0 - 2026-11-05
 
 **Highlights:** Mention people in rich messages, position stickers on message bubbles, and explicitly set your Messages Name & Photo, with fixes for typing events, subjects, delivery verification, and recoverable deletion.
