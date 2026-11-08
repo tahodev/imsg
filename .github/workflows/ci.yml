@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, ci-verify-392 ]
   pull_request:
   workflow_dispatch:
 
